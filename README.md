@@ -1,0 +1,2 @@
+# sql_patika
+ödev
