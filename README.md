@@ -50,3 +50,17 @@ SELECT COUNT(*) FROM city WHERE city ILIKE '%r';
 
 
 Kolay Gelsin.
+
+
+Aşağıdaki sorgu senaryolarını dvdrental örnek veri tabanı üzerinden gerçekleştiriniz.
+
+
+
+film tablosunda bulunan ve film ismi (title) 'n' karakteri ile biten en uzun (length) 5 filmi sıralayınız.
+SELECT title FROM film WHERE title ILIKE '%n'  ORDER BY title LIMIT 5;
+film tablosunda bulunan ve film ismi (title) 'n' karakteri ile biten en kısa (length) ikinci 5 filmi sıralayınız.
+SELECT title FROM film WHERE title ILIKE '%n'  ORDER BY title DESC LIMIT 5;
+customer tablosunda bulunan last_name sütununa göre azalan yapılan sıralamada store_id 1 olmak koşuluyla ilk 4 veriyi sıralayınız.
+SELECT last_name FROM customer  ORDER BY last_name DESC OFFSET 1 LIMIT 5;
+
+Kolay Gelsin.
