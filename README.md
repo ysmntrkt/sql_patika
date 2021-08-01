@@ -70,9 +70,13 @@ Aşağıdaki sorgu senaryolarını dvdrental örnek veri tabanı üzerinden ger�
 
 
 film tablosunda bulunan rental_rate sütunundaki değerlerin ortalaması nedir?
+SELECT ROUND (AVG(rental_rate)) FROM film;
 film tablosunda bulunan filmlerden kaçtanesi 'C' karekteri ile başlar?
+SELECT count(title) FROM film WHERE title LIKE 'C%';
 film tablosunda bulunan filmlerden rental_rate değeri 0.99 a eşit olan en uzun (length) film kaç dakikadır?
+SELECT MAX(length) FROM film WHERE rental_rate = 0.99 ;
 film tablosunda bulunan filmlerin uzunluğu 150 dakikadan büyük olanlarına ait kaç farklı replacement_cost değeri vardır?
+SELECT SUM(replacement_cost) FROM film WHERE length > 150;
 
 
 Kolay Gelsin.
@@ -82,7 +86,15 @@ Aşağıdaki sorgu senaryolarını dvdrental örnek veri tabanı üzerinden ger�
 
 
 film tablosunda bulunan filmleri rating değerlerine göre gruplayınız.
+SELECT max( rating)
+FROM film
+GROUP BY rating ;
+
 film tablosunda bulunan filmleri replacement_cost sütununa göre grupladığımızda film sayısı 50 den fazla olan replacement_cost değerini ve karşılık gelen film sayısını sıralayınız.
+SELECT COUNT (replacement_cost)
+FROM film
+GROUP BY replacement_cost
+ORDER BY replacement_cost > 50;
 3. customer tablosunda bulunan store_id değerlerine karşılık gelen müşteri sayılarını nelerdir?
 4. city tablosunda bulunan şehir verilerini country_id sütununa göre gruplandırdıktan sonra en fazla şehir sayısı barındıra country_id bilgisini ve şehir sayısını paylaşınız.
 
@@ -96,10 +108,63 @@ Merhabalar,
 
 
 test veritabanınızda employee isimli sütun bilgileri id(INTEGER), name VARCHAR(50), birthday DATE, email VARCHAR(100) olan bir tablo oluşturalım.
+CREATE TABLE employee (id INTEGER, name VARCHAR(50), birthday DATE, email VARCHAR(100));
 Oluşturduğumuz employee tablosuna 'Mockaroo' servisini kullanarak 50 adet veri ekleyelim.
-Sütunların her birine göre diğer sütunları güncelleyecek 5 adet UPDATE işlemi yapalım.
-Sütunların her birine göre ilgili satırı silecek 5 adet DELETE işlemi yapalım.
+insert into employe (id, name, email, birthday) values (1, 'Caria', 'ceick0@taobao.com', '04-May-2021');
+insert into employe (id, name, email, birthday) values (2, 'Mureil', 'mescot1@mayoclinic.com', '25-Aug-2020');
+insert into employe (id, name, email, birthday) values (null, null, null, null);
+insert into employe (id, name, email, birthday) values (4, 'Andrus', 'amarre3@census.gov', '14-Jan-2021');
+insert into employe (id, name, email, birthday) values (5, 'Jeannette', 'jslatcher4@china.com.cn', '22-Jun-2021');
+insert into employe (id, name, email, birthday) values (6, 'Gladi', 'gsoden5@samsung.com', '30-Jul-2021');
+insert into employe (id, name, email, birthday) values (7, 'Filmer', 'fseagood6@issuu.com', '12-Mar-2021');
+insert into employe (id, name, email, birthday) values (8, 'Cornela', 'cwaddup7@bandcamp.com', '01-Oct-2020');
+insert into employe (id, name, email, birthday) values (9, 'Pippy', 'pmarshfield8@list-manage.com', '04-Mar-2021');
+insert into employe (id, name, email, birthday) values (10, 'Tessie', 'tdomenge9@moonfruit.com', '06-Oct-2020');
+insert into employe (id, name, email, birthday) values (11, 'Dareen', 'drraundla@netscape.com', '26-Oct-2020');
+insert into employe (id, name, email, birthday) values (null, null, null, null);
+insert into employe (id, name, email, birthday) values (13, 'Farr', 'fgroombridgec@parallels.com', '08-Mar-2021');
+insert into employe (id, name, email, birthday) values (14, 'Annalise', 'abikkerd@exblog.jp', '05-Jul-2021');
+insert into employe (id, name, email, birthday) values (15, 'Abbey', 'abavridgee@printfriendly.com', '11-Jul-2021');
+insert into employe (id, name, email, birthday) values (16, 'Torrie', 'tthomssonf@patch.com', '17-Sep-2020');
+insert into employe (id, name, email, birthday) values (17, 'Ode', 'oedmettg@oracle.com', '21-May-2021');
+insert into employe (id, name, email, birthday) values (18, 'Gibbie', 'gmeritth@wikia.com', '04-Mar-2021');
+insert into employe (id, name, email, birthday) values (19, 'Arlee', 'aduddyi@vimeo.com', '26-Jan-2021');
+insert into employe (id, name, email, birthday) values (20, 'Arlen', 'ajorryj@gizmodo.com', '03-May-2021');
+insert into employe (id, name, email, birthday) values (null, null, null, null);
+insert into employe (id, name, email, birthday) values (22, 'Amil', 'ahuguenetl@reuters.com', '24-Jan-2021');
+insert into employe (id, name, email, birthday) values (23, 'Torr', 'tmucklestonem@mozilla.com', '03-Feb-2021');
+insert into employe (id, name, email, birthday) values (null, null, null, null);
+insert into employe (id, name, email, birthday) values (25, 'Eugenio', 'evallentino@businessweek.com', '29-Sep-2020');
+insert into employe (id, name, email, birthday) values (26, 'Lezley', 'ldowneyp@meetup.com', '27-Apr-2021');
+insert into employe (id, name, email, birthday) values (27, 'Diana', 'dmcgrearyq@cisco.com', '15-Dec-2020');
+insert into employe (id, name, email, birthday) values (28, 'Daphne', 'delwoodr@twitter.com', '22-Oct-2020');
+insert into employe (id, name, email, birthday) values (29, 'Ardelle', 'avitterys@examiner.com', '17-Nov-2020');
+insert into employe (id, name, email, birthday) values (30, 'Kendrick', 'kcristofolinit@nba.com', '03-May-2021');
+insert into employe (id, name, email, birthday) values (31, 'Steve', 'skingscoteu@paypal.com', '26-Jun-2021');
+insert into employe (id, name, email, birthday) values (32, 'Vally', 'vhavikv@bluehost.com', '28-Mar-2021');
+insert into employe (id, name, email, birthday) values (null, null, null, null);
+insert into employe (id, name, email, birthday) values (34, 'Pietra', 'pcastanosx@spiegel.de', '15-Mar-2021');
+insert into employe (id, name, email, birthday) values (35, 'Kippie', 'kbroadwoody@skyrock.com', '10-Jan-2021');
+insert into employe (id, name, email, birthday) values (36, 'Jedd', 'jcallwayz@imgur.com', '05-Jan-2021');
+insert into employe (id, name, email, birthday) values (37, 'Patton', 'pgland10@nifty.com', '01-Jan-2021');
+insert into employe (id, name, email, birthday) values (38, 'Devlen', 'dpirot11@mtv.com', '17-Jun-2021');
+insert into employe (id, name, email, birthday) values (39, 'Archaimbaud', 'amarlin12@google.it', '08-Mar-2021');
+insert into employe (id, name, email, birthday) values (null, null, null, null);
+insert into employe (id, name, email, birthday) values (41, 'Humfrey', 'hmacmoyer14@icio.us', '21-Jan-2021');
+insert into employe (id, name, email, birthday) values (42, 'Vail', 'vdracey15@de.vu', '02-Dec-2020');
+insert into employe (id, name, email, birthday) values (43, 'Darcie', 'dkirrage16@illinois.edu', '09-May-2021');
+insert into employe (id, name, email, birthday) values (44, 'Larry', 'llightwing17@ed.gov', '03-Dec-2020');
+insert into employe (id, name, email, birthday) values (45, 'Dicky', 'dpreon18@unicef.org', '31-Dec-2020');
+insert into employe (id, name, email, birthday) values (46, 'Antoine', 'aevensden19@merriam-webster.com', '12-Aug-2020');
+insert into employe (id, name, email, birthday) values (null, null, null, null);
+insert into employe (id, name, email, birthday) values (48, 'Minor', 'mpowderham1b@eventbrite.com', '01-Nov-2020');
+insert into employe (id, name, email, birthday) values (49, 'Devi', 'drivaland1c@berkeley.edu', '19-Sep-2020');
+insert into employe (id, name, email, birthday) values (null, null, null, null);
 
+Sütunların her birine göre diğer sütunları güncelleyecek 5 adet UPDATE işlemi yapalım.
+UPDATE employe SET name ='elmas yaesmin' where name= 'Ode' RETURNING *;
+Sütunların her birine göre ilgili satırı silecek 5 adet DELETE işlemi yapalım.
+DELETE FROM employe WHERE id < 6 RETURNING *;
 
 Kolay Gelsin.
 
