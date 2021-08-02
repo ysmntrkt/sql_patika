@@ -172,8 +172,17 @@ Kolay Gelsin.
 Aşağıdaki sorgu senaryolarını dvdrental örnek veri tabanı üzerinden gerçekleştiriniz.
 
 city tablosu ile country tablosunda bulunan şehir (city) ve ülke (country) isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+SELECT city, country
+FROM city
+INNER JOIN country ON city.city_id = country.country_id;
 customer tablosu ile payment tablosunda bulunan payment_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+SELECT payment.payment_id, customer.first_name, customer.last_name
+FROM payment
+INNER JOIN customer ON payment.payment_id = customer.store_id; 
 customer tablosu ile rental tablosunda bulunan rental_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz INNER JOIN sorgusunu yazınız.
+SELECT rental.rental_id, customer.first_name, customer.last_name
+FROM rental
+INNER JOIN customer ON rental.rental_id = customer.store_id; 
 
 
 Kolay Gelsin.
@@ -183,9 +192,19 @@ Aşağıdaki sorgu senaryolarını dvdrental örnek veri tabanı üzerinden ger�
 
 
 
-city tablosu ile country tablosunda bulunan şehir (city) ve ülke (country) isimlerini birlikte görebileceğimiz LEFT JOIN sorgusunu yazınız.
+city tablosu ile country tablosunda bulunan şehir (city) ve ülke (country) isimlerini birlikte görebileceğimiz LEFT JOIN sorgusunu yazınız.7
+SELECT city.city, country.country_id
+FROM city
+LEFT JOIN country
+ON city.city = country.country;
 customer tablosu ile payment tablosunda bulunan payment_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz RIGHT JOIN sorgusunu yazınız.
+SELECT payment.payment_id, customer.first_name, customer.last_name
+FROM payment
+RIGHT JOIN customer ON payment.payment_id = customer.store_id; 
 customer tablosu ile rental tablosunda bulunan rental_id ile customer tablosundaki first_name ve last_name isimlerini birlikte görebileceğimiz FULL JOIN sorgusunu yazınız.
+SELECT rental.rental_id, customer.first_name, customer.last_name
+FROM rental
+FULL JOIN customer ON rental.rental_id = customer.store_id; 
 
 
 Kolay Gelsin.
@@ -196,10 +215,12 @@ Aşağıdaki sorgu senaryolarını dvdrental örnek veri tabanı üzerinden ger�
 
 
 actor ve customer tablolarında bulunan first_name sütunları için tüm verileri sıralayalım.
+(SELECT *FROM actor ORDER BY first_name) UNION  (SELECT * FROM customer ORDER BY first_name);
 actor ve customer tablolarında bulunan first_name sütunları için kesişen verileri sıralayalım.
+(SELECT *FROM actor ORDER BY first_name) INTERSECT (SELECT * FROM customer ORDER BY first_name);
 actor ve customer tablolarında bulunan first_name sütunları için ilk tabloda bulunan ancak ikinci tabloda bulunmayan verileri sıralayalım.
 İlk 3 sorguyu tekrar eden veriler için de yapalım.
-
+(SELECT *FROM actor ORDER BY first_name) EXCEPT ALL (SELECT * FROM customer ORDER BY first_name) LIMIT 3;
 
 Kolay Gelsin.
 
@@ -210,11 +231,24 @@ Aşağıdaki sorgu senaryolarını dvdrental örnek veri tabanı üzerinden ger�
 
 
 film tablosunda film uzunluğu length sütununda gösterilmektedir. Uzunluğu ortalama film uzunluğundan fazla kaç tane film vardır?
+SELECT COUNT (length) FROM film WHERE length > 
+( SELECT MAX(length) FROM film);
 film tablosunda en yüksek rental_rate değerine sahip kaç tane film vardır?
+SELECT COUNT (rental_rate) FROM film WHERE rental_rate = 
+(
+	SELECT MAX(rental_rate) FROM film
+);
+
 film tablosunda en düşük rental_rate ve en düşün replacement_cost değerlerine sahip filmleri sıralayınız.
 payment tablosunda en fazla sayıda alışveriş yapan müşterileri(customer) sıralayınız.
-
-
+(SELECT rental_rate FROM film ORDER BY rental_rate)
+UNION 
+(SELECT replacement_cost FROM film ORDER BY replacement_cost);
+SELECT SUM(amount), customer.first_name , customer.last_name from payment
+JOIN customer ON customer.customer_id = payment.customer_id
+GROUP BY payment.customer_id,customer.first_name , customer.last_name 
+ORDER BY SUM(amount) DESC
+LIMIT 1;
 
 
 Kolay Gelsin.
